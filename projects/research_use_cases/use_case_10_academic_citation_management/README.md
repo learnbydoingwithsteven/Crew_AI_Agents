@@ -1,7 +1,6 @@
+# Academic Citation Management
 
-# Automated Financial Reporting
-
-Generate periodic financial reports automatically.
+Manage references and citations.
 
 ## Running the example
 

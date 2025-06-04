@@ -1,7 +1,6 @@
+# Data Analysis
 
-# Risk Management
-
-Use a crew to assess risk in derivative portfolios.
+Analyze datasets and interpret results.
 
 ## Running the example
 

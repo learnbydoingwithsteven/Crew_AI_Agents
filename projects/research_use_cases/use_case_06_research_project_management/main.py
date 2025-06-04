@@ -1,5 +1,4 @@
-
-"""Automated Financial Reporting example using CrewAI with Ollama."""
+"""Research Project Management example using CrewAI with Ollama."""
 
 from crewai import Agent, Task, Crew
 from langchain.llms import Ollama
@@ -7,15 +6,15 @@ from langchain.llms import Ollama
 llm = Ollama(model="llama3", base_url="http://localhost:11434")
 
 agent = Agent(
-    role="Automated Financial Reporting",
-    goal="Generate periodic financial reports automatically.",
-    backstory="Agent for automated financial reporting.",
+    role="Research Project Management",
+    goal="Track tasks for a research project.",
+    backstory="Agent for Research Project Management.",
     allow_delegation=False,
     llm=llm,
 )
 
 task = Task(
-    description="Generate periodic financial reports automatically.",
+    description="Track tasks for a research project.",
     expected_output="Result of the task.",
     agent=agent,
 )

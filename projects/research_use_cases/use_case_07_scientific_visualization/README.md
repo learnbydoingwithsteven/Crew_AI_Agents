@@ -1,7 +1,6 @@
+# Scientific Visualization
 
-# Loan Default Prediction
-
-Predict potential loan defaults.
+Generate visualizations for publications.
 
 ## Running the example
 

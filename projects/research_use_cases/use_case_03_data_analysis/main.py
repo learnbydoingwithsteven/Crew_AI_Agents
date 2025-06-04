@@ -1,5 +1,4 @@
-
-"""Insider Trading Detection example using CrewAI with Ollama."""
+"""Data Analysis example using CrewAI with Ollama."""
 
 from crewai import Agent, Task, Crew
 from langchain.llms import Ollama
@@ -7,15 +6,15 @@ from langchain.llms import Ollama
 llm = Ollama(model="llama3", base_url="http://localhost:11434")
 
 agent = Agent(
-    role="Insider Trading Detection",
-    goal="Detect potential insider trading activities.",
-    backstory="Agent for insider trading detection.",
+    role="Data Analysis",
+    goal="Analyze datasets and interpret results.",
+    backstory="Agent for Data Analysis.",
     allow_delegation=False,
     llm=llm,
 )
 
 task = Task(
-    description="Detect potential insider trading activities.",
+    description="Analyze datasets and interpret results.",
     expected_output="Result of the task.",
     agent=agent,
 )

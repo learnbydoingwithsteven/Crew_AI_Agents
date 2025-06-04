@@ -1,7 +1,6 @@
+# Experiment Design
 
-# Compliance Monitoring
-
-Monitor transactions for regulatory compliance.
+Assist researchers with designing experiments.
 
 ## Running the example
 

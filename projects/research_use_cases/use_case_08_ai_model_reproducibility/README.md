@@ -1,6 +1,6 @@
-# Fraud Detection
+# AI Model Reproducibility
 
-This example demonstrates how to build a simple fraud detection agent crew using a local Ollama model.
+Check reproducibility of AI models.
 
 ## Running the example
 

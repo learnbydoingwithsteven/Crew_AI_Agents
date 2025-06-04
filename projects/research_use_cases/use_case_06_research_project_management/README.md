@@ -1,7 +1,6 @@
+# Research Project Management
 
-# Portfolio Optimization
-
-Optimize investment portfolios using AI agents.
+Track tasks for a research project.
 
 ## Running the example
 

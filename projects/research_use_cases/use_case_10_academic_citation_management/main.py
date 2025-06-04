@@ -1,5 +1,4 @@
-
-"""Insurance Claim Processing example using CrewAI with Ollama."""
+"""Academic Citation Management example using CrewAI with Ollama."""
 
 from crewai import Agent, Task, Crew
 from langchain.llms import Ollama
@@ -7,15 +6,15 @@ from langchain.llms import Ollama
 llm = Ollama(model="llama3", base_url="http://localhost:11434")
 
 agent = Agent(
-    role="Insurance Claim Processing",
-    goal="Automate processing of insurance claims.",
-    backstory="Agent for insurance claim processing.",
+    role="Academic Citation Management",
+    goal="Manage references and citations.",
+    backstory="Agent for Academic Citation Management.",
     allow_delegation=False,
     llm=llm,
 )
 
 task = Task(
-    description="Automate processing of insurance claims.",
+    description="Manage references and citations.",
     expected_output="Result of the task.",
     agent=agent,
 )

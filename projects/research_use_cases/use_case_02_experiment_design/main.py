@@ -1,5 +1,4 @@
-
-"""Algorithmic Trading Assistant example using CrewAI with Ollama."""
+"""Experiment Design example using CrewAI with Ollama."""
 
 from crewai import Agent, Task, Crew
 from langchain.llms import Ollama
@@ -7,15 +6,15 @@ from langchain.llms import Ollama
 llm = Ollama(model="llama3", base_url="http://localhost:11434")
 
 agent = Agent(
-    role="Algorithmic Trading Assistant",
-    goal="Assist in developing algorithmic trading strategies.",
-    backstory="Agent for algorithmic trading assistant.",
+    role="Experiment Design",
+    goal="Assist researchers with designing experiments.",
+    backstory="Agent for Experiment Design.",
     allow_delegation=False,
     llm=llm,
 )
 
 task = Task(
-    description="Assist in developing algorithmic trading strategies.",
+    description="Assist researchers with designing experiments.",
     expected_output="Result of the task.",
     agent=agent,
 )

@@ -1,5 +1,4 @@
-
-"""Portfolio Optimization example using CrewAI with Ollama."""
+"""AI Model Reproducibility example using CrewAI with Ollama."""
 
 from crewai import Agent, Task, Crew
 from langchain.llms import Ollama
@@ -7,15 +6,15 @@ from langchain.llms import Ollama
 llm = Ollama(model="llama3", base_url="http://localhost:11434")
 
 agent = Agent(
-    role="Portfolio Optimization",
-    goal="Optimize investment portfolios using AI agents.",
-    backstory="Agent for portfolio optimization.",
+    role="AI Model Reproducibility",
+    goal="Check reproducibility of AI models.",
+    backstory="Agent for AI Model Reproducibility.",
     allow_delegation=False,
     llm=llm,
 )
 
 task = Task(
-    description="Optimize investment portfolios using AI agents.",
+    description="Check reproducibility of AI models.",
     expected_output="Result of the task.",
     agent=agent,
 )

@@ -1,5 +1,4 @@
-
-"""Bank Customer Service Chatbot example using CrewAI with Ollama."""
+"""Literature Review example using CrewAI with Ollama."""
 
 from crewai import Agent, Task, Crew
 from langchain.llms import Ollama
@@ -7,15 +6,15 @@ from langchain.llms import Ollama
 llm = Ollama(model="llama3", base_url="http://localhost:11434")
 
 agent = Agent(
-    role="Bank Customer Service Chatbot",
-    goal="Provide customer support for banking queries.",
-    backstory="Agent for bank customer service chatbot.",
+    role="Literature Review",
+    goal="Summarize relevant academic papers.",
+    backstory="Agent for Literature Review.",
     allow_delegation=False,
     llm=llm,
 )
 
 task = Task(
-    description="Provide customer support for banking queries.",
+    description="Summarize relevant academic papers.",
     expected_output="Result of the task.",
     agent=agent,
 )

@@ -1,7 +1,6 @@
+# Peer Review Assistant
 
-# Algorithmic Trading Assistant
-
-Assist in developing algorithmic trading strategies.
+Provide feedback on draft manuscripts.
 
 ## Running the example
 

@@ -1,7 +1,6 @@
+# Research Paper Summarization
 
-# Insider Trading Detection
-
-Detect potential insider trading activities.
+Create concise paper summaries.
 
 ## Running the example
 

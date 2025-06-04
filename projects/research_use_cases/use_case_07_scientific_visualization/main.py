@@ -1,5 +1,4 @@
-
-"""Loan Default Prediction example using CrewAI with Ollama."""
+"""Scientific Visualization example using CrewAI with Ollama."""
 
 from crewai import Agent, Task, Crew
 from langchain.llms import Ollama
@@ -7,15 +6,15 @@ from langchain.llms import Ollama
 llm = Ollama(model="llama3", base_url="http://localhost:11434")
 
 agent = Agent(
-    role="Loan Default Prediction",
-    goal="Predict potential loan defaults.",
-    backstory="Agent for loan default prediction.",
+    role="Scientific Visualization",
+    goal="Generate visualizations for publications.",
+    backstory="Agent for Scientific Visualization.",
     allow_delegation=False,
     llm=llm,
 )
 
 task = Task(
-    description="Predict potential loan defaults.",
+    description="Generate visualizations for publications.",
     expected_output="Result of the task.",
     agent=agent,
 )

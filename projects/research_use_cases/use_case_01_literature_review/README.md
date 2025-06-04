@@ -1,7 +1,6 @@
+# Literature Review
 
-# Bank Customer Service Chatbot
-
-Provide customer support for banking queries.
+Summarize relevant academic papers.
 
 ## Running the example
 

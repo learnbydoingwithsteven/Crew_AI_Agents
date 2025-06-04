@@ -1,7 +1,6 @@
+# Grant Writing
 
-# Insurance Claim Processing
-
-Automate processing of insurance claims.
+Help draft research grant proposals.
 
 ## Running the example
 

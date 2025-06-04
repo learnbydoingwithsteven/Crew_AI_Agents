@@ -1,6 +1,9 @@
 """Use Case 1: Knowledge Graph Creation
 
-Build a small knowledge graph from example documents using a simple agent.
+Demonstrates how a CrewAI-powered agent could ingest documents using a local
+Ollama model and store key terms in a lightweight knowledge graph. The example
+uses ``networkx`` as a placeholder for the graph and omits real model calls for
+simplicity.
 """
 from __future__ import annotations
 from dataclasses import dataclass

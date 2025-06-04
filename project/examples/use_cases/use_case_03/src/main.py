@@ -1,7 +1,9 @@
 """Use Case 3: Idea Incubation
 
-Analyze the knowledge graph to identify potential research ideas based on
-missing connections between topics.
+Uses the graph produced by previous agents to look for gaps between topics.
+In a full setup, a CrewAI agent with an Ollama model would analyze these gaps
+and propose new research ideas. Here we simply generate potential connections
+between keywords to illustrate the concept.
 """
 from __future__ import annotations
 from dataclasses import dataclass

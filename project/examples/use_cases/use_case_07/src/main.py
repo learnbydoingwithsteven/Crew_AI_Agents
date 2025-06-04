@@ -1,6 +1,9 @@
 """Use Case 7: Collaboration Network Mapping
 
-Create a network of researchers and institutions to discover potential collaborators.
+Highlights how a CrewAI agent might build a graph of researchers and
+organizations. With Ollama providing the language model, the agent could suggest
+new partnerships based on shared topics. This mock-up adds nodes and edges to a
+simple networkx graph.
 """
 from __future__ import annotations
 from dataclasses import dataclass

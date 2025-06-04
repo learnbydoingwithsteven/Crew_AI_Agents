@@ -1,6 +1,9 @@
 """Use Case 5: Experiment Design Assistance
 
-Recommend experimental methods based on existing entries in the knowledge graph.
+Illustrates how a CrewAI agent might mine the knowledge graph for previously
+used techniques. When paired with a local Ollama model, the agent could suggest
+relevant experimental procedures. This script simply extracts unique method
+keywords from the stored documents.
 """
 from __future__ import annotations
 from dataclasses import dataclass

@@ -1,6 +1,9 @@
 """Use Case 4: Automated Literature Review
 
-Generate a brief summary of documents stored in the knowledge graph.
+Shows how an agent could produce concise summaries of papers stored in the
+knowledge graph. Integrating CrewAI with Ollama would allow the agent to
+generate natural language abstracts; here we simply return text snippets from
+each document for demonstration.
 """
 from __future__ import annotations
 from dataclasses import dataclass

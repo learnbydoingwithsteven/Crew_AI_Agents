@@ -1,6 +1,8 @@
 """Use Case 9: Real-time Research Updates
 
-Simulate monitoring new documents and automatically adding them to the knowledge graph.
+Shows a simplified monitoring agent that adds new documents to the knowledge
+graph as they appear. With CrewAI and an Ollama model, this could continuously
+ingest publications or web articles and keep the research graph current.
 """
 from __future__ import annotations
 from dataclasses import dataclass

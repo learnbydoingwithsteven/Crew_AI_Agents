@@ -1,6 +1,9 @@
 """Use Case 2: Accelerated Querying
 
-Query the knowledge graph for documents related to a specific keyword.
+Illustrates how a CrewAI agent might query the knowledge graph built from
+Ollama-powered document ingestion. The agent returns titles of documents linked
+to a given keyword. Networkx is used instead of a full graph database to keep
+the example lightweight.
 """
 from __future__ import annotations
 from dataclasses import dataclass

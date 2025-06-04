@@ -1,6 +1,9 @@
 """Use Case 6: Grant Proposal Support
 
-Gather references from the knowledge graph to incorporate into a grant proposal.
+Demonstrates how a CrewAI agent could collect relevant citations from the
+knowledge graph to help craft a funding proposal. With an Ollama model this
+could include automatically generated text. For this simplified example we only
+retrieve document titles associated with key topics.
 """
 from __future__ import annotations
 from dataclasses import dataclass

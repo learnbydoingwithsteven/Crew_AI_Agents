@@ -1,6 +1,9 @@
 """Use Case 8: Data Integration with Ontologies
 
-Combine datasets under a common ontology within the knowledge graph.
+Demonstrates merging terms from multiple datasets into a unified ontology. A
+CrewAI agent paired with an Ollama model could handle entity resolution and
+ontology alignment. Here we simply connect dataset names with shared terms in a
+networkx graph.
 """
 from __future__ import annotations
 from dataclasses import dataclass

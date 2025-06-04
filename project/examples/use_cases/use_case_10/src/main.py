@@ -1,6 +1,9 @@
 """Use Case 10: Interdisciplinary Connection Finder
 
-Search the knowledge graph for links between distinct research fields.
+Looks for connections between documents from different research fields.
+A production CrewAI agent could query an Ollama model for cross-domain insights
+based on the graph structure. This example just reports document pairs from
+different fields.
 """
 from __future__ import annotations
 from dataclasses import dataclass

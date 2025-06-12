@@ -1,4 +1,4 @@
-ÿþ"""Grant Writing example using CrewAI with Ollama."""
+"""Grant Writing example using CrewAI with Ollama."""
 
 import sys
 import os

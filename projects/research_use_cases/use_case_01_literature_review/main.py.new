@@ -1,0 +1,96 @@
+"""Literature Review example using CrewAI with Ollama."""
+
+import sys
+import os
+import json
+from typing import Dict, Any, Optional
+
+# Add the parent directory to sys.path to allow importing from projects
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..')))
+
+from crewai import Agent, Task, Crew, Process
+from projects.utils import UseCase
+
+class LiteratureReviewUseCase(UseCase):
+    """Literature Review use case implementation."""
+    
+    def setup_agents(self):
+        """Set up agents for literature review."""
+        self.researcher = Agent(
+            role="Research Analyst",
+            goal="Find and analyze relevant academic papers",
+            backstory="You are an expert researcher with experience in analyzing academic literature. "
+                      "You can quickly identify key studies, understand their methodologies, and extract important findings.",
+            allow_delegation=False,
+            llm=self.llm,
+            tools=self.tools,
+            verbose=True
+        )
+        
+        self.synthesizer = Agent(
+            role="Information Synthesizer",
+            goal="Synthesize research findings into a cohesive literature review",
+            backstory="You are skilled at integrating diverse research findings into comprehensive literature reviews. "
+                     "You identify patterns, contradictions, and gaps in the current research.",
+            allow_delegation=False,
+            llm=self.llm,
+            tools=self.tools,
+            verbose=True
+        )
+        
+        # Add agents to the list
+        self.agents = [self.researcher, self.synthesizer]
+    
+    def setup_tasks(self, input_data: Optional[Dict[str, Any]] = None):
+        """Set up tasks for literature review.
+        
+        Args:
+            input_data: Optional dictionary containing input data
+        """
+        # Process input data if provided
+        topic = input_data.get("query", "artificial intelligence advances") if input_data else "artificial intelligence advances"
+        
+        # Define tasks
+        research_task = Task(
+            description=f"Research and identify key academic papers on '{topic}'. Find at least 5 relevant papers, "
+                       f"noting their authors, publication date, key findings, and methodologies.",
+            expected_output="A detailed list of relevant academic papers with summaries of their findings and methodologies.",
+            agent=self.researcher,
+        )
+        
+        synthesis_task = Task(
+            description=f"Create a comprehensive literature review on '{topic}' based on the research findings. "
+                      f"Synthesize the key themes, identify research gaps, and suggest future research directions.",
+            expected_output="A structured literature review with sections on current research, methodologies, findings, gaps, and future directions.",
+            agent=self.synthesizer,
+            context=[research_task]
+        )
+        
+        # Add tasks to the list
+        self.tasks = [research_task, synthesis_task]
+
+# Create instance for standalone usage
+literature_review = LiteratureReviewUseCase()
+
+def run(input_data: Optional[Dict[str, Any]] = None) -> str:
+    """Run the literature review use case.
+    
+    Args:
+        input_data: Optional dictionary containing input data
+        
+    Returns:
+        The result of the literature review analysis
+    """
+    # Create a new instance to ensure clean state
+    use_case = LiteratureReviewUseCase()
+    use_case.setup_agents()
+    use_case.setup_tasks(input_data)
+    use_case.setup_crew(Process.sequential)
+    
+    # Run the use case
+    result = use_case.crew.kickoff()
+    return result
+
+if __name__ == "__main__":
+    result = run()
+    print(result)

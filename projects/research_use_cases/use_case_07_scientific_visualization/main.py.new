@@ -1,4 +1,4 @@
-ÿþ"""Scientific Visualization example using CrewAI with Ollama."""
+"""Scientific Visualization example using CrewAI with Ollama."""
 
 import sys
 import os

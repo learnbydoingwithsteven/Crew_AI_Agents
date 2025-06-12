@@ -1,4 +1,4 @@
-ÿþ"""Portfolio Optimization example using CrewAI with Ollama."""
+"""Portfolio Optimization example using CrewAI with Ollama."""
 
 import sys
 import os

@@ -1,4 +1,4 @@
-ÿþ"""Academic Citation Management example using CrewAI with Ollama."""
+"""Academic Citation Management example using CrewAI with Ollama."""
 
 import sys
 import os

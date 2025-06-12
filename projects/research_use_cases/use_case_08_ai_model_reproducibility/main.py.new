@@ -1,4 +1,4 @@
-ÿþ"""AI Model Reproducibility example using CrewAI with Ollama."""
+"""AI Model Reproducibility example using CrewAI with Ollama."""
 
 import sys
 import os

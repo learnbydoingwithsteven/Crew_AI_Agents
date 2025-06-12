@@ -1,4 +1,4 @@
-ÿþ"""Loan Default Prediction example using CrewAI with Ollama."""
+"""Loan Default Prediction example using CrewAI with Ollama."""
 
 import sys
 import os

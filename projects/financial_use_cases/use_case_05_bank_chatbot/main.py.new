@@ -1,4 +1,4 @@
-ÿþ"""Bank Customer Service Chatbot example using CrewAI with Ollama."""
+"""Bank Customer Service Chatbot example using CrewAI with Ollama."""
 
 import sys
 import os

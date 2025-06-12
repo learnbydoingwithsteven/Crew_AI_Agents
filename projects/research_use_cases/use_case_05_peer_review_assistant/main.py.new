@@ -1,4 +1,4 @@
-ÿþ"""Peer Review Assistant example using CrewAI with Ollama."""
+"""Peer Review Assistant example using CrewAI with Ollama."""
 
 import sys
 import os

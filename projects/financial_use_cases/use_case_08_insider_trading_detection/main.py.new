@@ -1,4 +1,4 @@
-ÿþ"""Insider Trading Detection example using CrewAI with Ollama."""
+"""Insider Trading Detection example using CrewAI with Ollama."""
 
 import sys
 import os

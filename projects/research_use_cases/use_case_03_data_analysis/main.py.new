@@ -1,4 +1,4 @@
-ÿþ"""Data Analysis example using CrewAI with Ollama."""
+"""Data Analysis example using CrewAI with Ollama."""
 
 import sys
 import os

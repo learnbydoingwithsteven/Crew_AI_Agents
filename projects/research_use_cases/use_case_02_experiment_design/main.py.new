@@ -1,4 +1,4 @@
-ÿþ"""Experiment Design example using CrewAI with Ollama."""
+"""Experiment Design example using CrewAI with Ollama."""
 
 import sys
 import os

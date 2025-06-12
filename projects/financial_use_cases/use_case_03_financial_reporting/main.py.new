@@ -1,4 +1,4 @@
-ÿþ"""Automated Financial Reporting example using CrewAI with Ollama."""
+"""Automated Financial Reporting example using CrewAI with Ollama."""
 
 import sys
 import os

@@ -1,4 +1,4 @@
-ÿþ"""Research Project Management example using CrewAI with Ollama."""
+"""Research Project Management example using CrewAI with Ollama."""
 
 import sys
 import os

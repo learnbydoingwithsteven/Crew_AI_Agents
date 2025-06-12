@@ -1,0 +1,136 @@
+"""Algorithmic Trading Assistant example using CrewAI with Ollama."""
+
+import sys
+import os
+import json
+from typing import Dict, Any, Optional
+
+# Add the parent directory to sys.path to allow importing from projects
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..')))
+
+from crewai import Agent, Task, Crew, Process
+from projects.utils import UseCase
+
+class AlgorithmicTradingUseCase(UseCase):
+    """Algorithmic Trading use case implementation."""
+    
+    def setup_agents(self):
+        """Set up agents for algorithmic trading."""
+        self.market_analyst = Agent(
+            role="Market Research Analyst",
+            goal="Research and analyze market conditions and asset behavior",
+            backstory="You are a market research analyst with expertise in financial markets. "
+                     "You specialize in analyzing market conditions, identifying trends, and "
+                     "understanding asset behavior across different market regimes. You have "
+                     "deep knowledge of technical analysis, fundamental analysis, and market "
+                     "microstructure that can inform algorithmic trading strategies.",
+            allow_delegation=False,
+            llm=self.llm,
+            tools=self.tools,
+            verbose=True
+        )
+        
+        self.quant_developer = Agent(
+            role="Quantitative Strategy Developer",
+            goal="Design algorithmic trading strategies based on market research",
+            backstory="You are a quantitative strategy developer who specializes in creating "
+                     "algorithmic trading models. You can translate market insights into mathematical "
+                     "models and trading rules. You understand various algorithmic approaches including "
+                     "momentum, mean-reversion, statistical arbitrage, and machine learning-based methods.",
+            allow_delegation=False,
+            llm=self.llm,
+            tools=self.tools,
+            verbose=True
+        )
+        
+        self.backtest_engineer = Agent(
+            role="Backtesting and Risk Management Engineer",
+            goal="Evaluate trading strategies and optimize risk parameters",
+            backstory="You are an expert in backtesting and risk management for algorithmic trading. "
+                      "You know how to properly test strategies against historical data, avoid common "
+                      "pitfalls like overfitting and look-ahead bias, and implement appropriate risk "
+                      "controls. You can assess strategy performance across various metrics and optimize "
+                      "parameters for the best risk-adjusted returns.",
+            allow_delegation=False,
+            llm=self.llm,
+            tools=self.tools,
+            verbose=True
+        )
+        
+        # Add agents to the list
+        self.agents = [self.market_analyst, self.quant_developer, self.backtest_engineer]
+    
+    def setup_tasks(self, input_data: Optional[Dict[str, Any]] = None):
+        """Set up tasks for algorithmic trading.
+        
+        Args:
+            input_data: Optional dictionary containing input data
+        """
+        # Process input data if provided
+        strategy_focus = input_data.get("query", "Momentum-based strategy for cryptocurrency markets") if input_data else "Momentum-based strategy for cryptocurrency markets"
+        
+        # Prepare market data context if provided
+        market_context = ""
+        if input_data and "market_data" in input_data:
+            market_context = f"Use the following market data for analysis: {json.dumps(input_data['market_data'])}"
+        
+        # Define tasks
+        market_analysis_task = Task(
+            description=f"Research and analyze market conditions for a '{strategy_focus}'. {market_context}\n"
+                       f"Investigate relevant market characteristics, including volatility patterns, liquidity conditions, "
+                       f"seasonal effects, and correlation structures. Identify key factors that would influence the "
+                       f"effectiveness of the strategy. Research existing approaches and best practices for this type "
+                       f"of strategy in the target market.",
+            expected_output="A comprehensive market analysis report with insights to inform strategy development.",
+            agent=self.market_analyst,
+        )
+        
+        strategy_development_task = Task(
+            description=f"Design an algorithmic trading strategy for '{strategy_focus}' based on the market analysis. "
+                       f"Develop a clear set of trading rules, including entry and exit criteria, position sizing logic, "
+                       f"and timing considerations. Define the mathematical models and indicators to be used. Specify "
+                       f"required data inputs, parameters, and how the algorithm should adapt to different market conditions.",
+            expected_output="A detailed algorithmic trading strategy specification with complete trading rules and implementation guidelines.",
+            agent=self.quant_developer,
+            context=[market_analysis_task]
+        )
+        
+        backtest_evaluation_task = Task(
+            description=f"Design a backtesting framework and evaluate the '{strategy_focus}' strategy. "
+                      f"Create a methodology for properly testing the strategy against historical data. "
+                      f"Specify appropriate performance metrics, risk measures, and benchmark comparisons. "
+                      f"Identify potential optimizations and risk management improvements. Develop a plan "
+                      f"for strategy monitoring and maintenance after deployment.",
+            expected_output="A complete backtesting and risk management framework with strategy evaluation results and optimization recommendations.",
+            agent=self.backtest_engineer,
+            context=[market_analysis_task, strategy_development_task]
+        )
+        
+        # Add tasks to the list
+        self.tasks = [market_analysis_task, strategy_development_task, backtest_evaluation_task]
+
+# Create instance for standalone usage
+algorithmic_trading = AlgorithmicTradingUseCase()
+
+def run(input_data: Optional[Dict[str, Any]] = None) -> str:
+    """Run the algorithmic trading use case.
+    
+    Args:
+        input_data: Optional dictionary containing input data
+        
+    Returns:
+        The result of the algorithmic trading process
+    """
+    # Create a new instance to ensure clean state
+    use_case = AlgorithmicTradingUseCase()
+    use_case.setup_agents()
+    use_case.setup_tasks(input_data)
+    use_case.setup_crew(Process.sequential)
+    
+    # Run the use case
+    result = use_case.crew.kickoff()
+    return result
+
+if __name__ == "__main__":
+    result = run()
+    print(result)

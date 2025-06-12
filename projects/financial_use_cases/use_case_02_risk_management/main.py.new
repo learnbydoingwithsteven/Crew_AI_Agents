@@ -1,4 +1,4 @@
-ÿþ"""Risk Management example using CrewAI with Ollama."""
+"""Risk Management example using CrewAI with Ollama."""
 
 import sys
 import os

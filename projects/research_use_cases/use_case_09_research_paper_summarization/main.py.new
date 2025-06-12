@@ -1,0 +1,139 @@
+"""Research Paper Summarization example using CrewAI with Ollama."""
+
+import sys
+import os
+import json
+from typing import Dict, Any, Optional
+
+# Add the parent directory to sys.path to allow importing from projects
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..')))
+
+from crewai import Agent, Task, Crew, Process
+from projects.utils import UseCase
+
+class ResearchPaperSummarizationUseCase(UseCase):
+    """Research Paper Summarization use case implementation."""
+    
+    def setup_agents(self):
+        """Set up agents for research paper summarization."""
+        self.content_analyst = Agent(
+            role="Research Content Analyst",
+            goal="Analyze and extract key information from research papers",
+            backstory="You are a scientific content analyst with expertise in extracting and organizing "
+                     "the core findings, methodologies, and contributions from academic papers. You have "
+                     "a deep understanding of research structures across disciplines and can identify the "
+                     "most important elements that should be included in a comprehensive summary.",
+            allow_delegation=False,
+            llm=self.llm,
+            tools=self.tools,
+            verbose=True
+        )
+        
+        self.literature_contextualizer = Agent(
+            role="Literature Context Specialist",
+            goal="Position the paper within its broader research context",
+            backstory="You are a scholarly literature expert who specializes in understanding the place "
+                     "of individual papers within their research field. You can identify how a paper "
+                     "relates to existing literature, what gaps it fills, and its significance to the "
+                     "field. You understand research trends and can highlight what makes a paper novel.",
+            allow_delegation=False,
+            llm=self.llm,
+            tools=self.tools,
+            verbose=True
+        )
+        
+        self.summary_writer = Agent(
+            role="Academic Summary Writer",
+            goal="Create concise, accurate, and accessible research paper summaries",
+            backstory="You are a specialized science writer who excels at translating complex research "
+                      "into clear, concise summaries. You can distill lengthy academic papers into their "
+                      "essence while maintaining accuracy and capturing the important nuances. You adapt "
+                      "your writing style based on the intended audience, whether researchers, students, "
+                      "or general readers.",
+            allow_delegation=False,
+            llm=self.llm,
+            tools=self.tools,
+            verbose=True
+        )
+        
+        # Add agents to the list
+        self.agents = [self.content_analyst, self.literature_contextualizer, self.summary_writer]
+    
+    def setup_tasks(self, input_data: Optional[Dict[str, Any]] = None):
+        """Set up tasks for research paper summarization.
+        
+        Args:
+            input_data: Optional dictionary containing input data
+        """
+        # Process input data if provided
+        paper_title = input_data.get("query", "Recent advances in machine learning for natural language processing") if input_data else "Recent advances in machine learning for natural language processing"
+        
+        # Prepare paper content if provided
+        paper_context = ""
+        if input_data and "paper_content" in input_data:
+            paper_context = f"Use the following paper content for analysis: {json.dumps(input_data['paper_content'])}"
+        
+        # Define tasks
+        content_analysis_task = Task(
+            description=f"Analyze the research paper on '{paper_title}'. {paper_context}\n"
+                       f"Extract and organize the key elements of the paper, including: "
+                       f"1) Research objectives and questions, 2) Methodology and approach, "
+                       f"3) Main findings and results, 4) Limitations acknowledged by authors, "
+                       f"5) Conclusions and implications. Identify any notable visualizations or "
+                       f"data presentations that should be highlighted in a summary.",
+            expected_output="A comprehensive analysis of the paper's key elements organized by section.",
+            agent=self.content_analyst,
+        )
+        
+        literature_context_task = Task(
+            description=f"Contextualize the paper on '{paper_title}' within its research field. "
+                       f"Based on the content analysis, identify: 1) How this paper relates to "
+                       f"existing literature in the field, 2) What gap it addresses or question "
+                       f"it answers, 3) Its novel contributions and significance, 4) Potential "
+                       f"impact on future research directions. Place the paper in the broader "
+                       f"context of current research trends.",
+            expected_output="An analysis of the paper's position within the broader research landscape.",
+            agent=self.literature_contextualizer,
+            context=[content_analysis_task]
+        )
+        
+        summary_writing_task = Task(
+            description=f"Create a comprehensive yet concise summary of the paper on '{paper_title}'. "
+                      f"Using the content analysis and contextual information, develop a well-structured "
+                      f"summary that includes: 1) A compelling introduction that states the paper's purpose, "
+                      f"2) Concise overview of methodology, 3) Key findings presented logically, "
+                      f"4) Significance and implications, 5) Limitations where relevant. The summary "
+                      f"should be accessible while maintaining scientific accuracy.",
+            expected_output="A comprehensive, concise, and accessible summary of the research paper.",
+            agent=self.summary_writer,
+            context=[content_analysis_task, literature_context_task]
+        )
+        
+        # Add tasks to the list
+        self.tasks = [content_analysis_task, literature_context_task, summary_writing_task]
+
+# Create instance for standalone usage
+research_paper_summarization = ResearchPaperSummarizationUseCase()
+
+def run(input_data: Optional[Dict[str, Any]] = None) -> str:
+    """Run the research paper summarization use case.
+    
+    Args:
+        input_data: Optional dictionary containing input data
+        
+    Returns:
+        The result of the research paper summarization process
+    """
+    # Create a new instance to ensure clean state
+    use_case = ResearchPaperSummarizationUseCase()
+    use_case.setup_agents()
+    use_case.setup_tasks(input_data)
+    use_case.setup_crew(Process.sequential)
+    
+    # Run the use case
+    result = use_case.crew.kickoff()
+    return result
+
+if __name__ == "__main__":
+    result = run()
+    print(result)
